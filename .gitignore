@@ -1,0 +1,23 @@
+# Build outputs & CMake cache
+build/
+bin/
+out/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+
+# Compiled binaries and objects
+*.obj
+*.o
+*.exe
+*.out
+*.dll
+*.so
+*.a
+*.lib
+
+# IDE & Editor settings
+.vs/
+.vscode/
+*.user
+*.suo
