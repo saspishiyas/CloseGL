@@ -2,6 +2,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+#include <shader.h>
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
@@ -71,7 +73,12 @@ int main() {
 	//Passing data to VBO
 	glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(float), vertices, GL_STATIC_DRAW);
 
+	//Creating the shader
+	Shader colorShader("../../../shaders/shader1.vert", "../../../shaders/shader1.frag");
+	colorShader.use();
 
+	/*
+	 
 	//Creating and compiling vertex shader from source
 	unsigned int vertexShader;
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -92,9 +99,16 @@ int main() {
 	glLinkProgram(shaderProgram);
 	glUseProgram(shaderProgram);
 
+	*/
+
+	//Defining the format of data in vertex buffer
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
+	//Querying GL for max amount of attributes
+	int nrAttributes;
+	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
+	std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
 
 	//Check if window was created successfully, exit otherwise
 	if (!hilol) {
@@ -114,6 +128,10 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT);
 	
 		//Rendering 
+		float timeValue = glfwGetTime();
+		float greenValue = sin(timeValue) / 2.0f + 0.5f;
+		colorShader.setFloat("vertexColor", greenValue);
+
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 		
 		//Swapping front and back buffers

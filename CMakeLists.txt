@@ -18,7 +18,7 @@ FetchContent_MakeAvailable(glfw)
 find_package(OpenGL REQUIRED)
 
 add_executable(
-    ${PROJECT_NAME} 
+    ${PROJECT_NAME}
     src/main.cpp
     src/glad.c
 )
@@ -26,6 +26,7 @@ add_executable(
 target_include_directories(${PROJECT_NAME} PRIVATE
     vendor/include
     vendor/include
+    include
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
